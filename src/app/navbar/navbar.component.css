@@ -95,10 +95,14 @@ a.active::after {
 /* Responsive design */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem 0;
+    padding: 1rem 0 1rem 0;
   }
   
   a {
     font-size: 0.9rem;
+  }
+
+  ul{
+    padding-right: 2rem;
   }
 }

@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { ViewStateService } from '../services/view-state.service';
 import { Subscription } from 'rxjs';
-import { NavbarComponent } from '../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-model',

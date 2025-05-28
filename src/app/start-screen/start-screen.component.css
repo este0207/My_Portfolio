@@ -36,3 +36,10 @@
     color: black;
     transform: scale(1.1);
 }
+
+@media (max-width:679px){
+.animated-btn{
+    width: 100%;
+    font-size: 20px;
+}
+}
