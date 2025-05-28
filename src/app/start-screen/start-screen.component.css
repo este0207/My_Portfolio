@@ -1,0 +1,38 @@
+.screen {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    z-index: 301;
+    transition: 1s;
+}
+
+.screen.active{
+    opacity: 0;
+}
+
+.text-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+.animated-btn {
+    font-family: monospace;
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 0.1em;
+    white-space: pre;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.animated-btn:hover{
+    background-color: aliceblue;
+    color: black;
+    transform: scale(1.1);
+}

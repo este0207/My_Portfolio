@@ -1,0 +1,30 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 310;
+    width: 100%;
+    bottom: 0;
+    height: 11vh;
+    color: white;
+    font-size: 15px;
+    padding: 0 2rem;
+    background-color: transparent;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    justify-content: center;
+}
+
+#Date{
+    color: #a3a3a3;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 0 1rem;
+        height: 50px;
+    }
+}
