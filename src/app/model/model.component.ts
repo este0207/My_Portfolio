@@ -10,7 +10,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-model',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [],
   templateUrl: './model.component.html',
   styleUrl: './model.component.css'
 })
