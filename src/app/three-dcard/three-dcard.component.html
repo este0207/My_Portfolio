@@ -1,0 +1,5 @@
+<div class="card-container" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+    <a href=""><div class="card" [ngStyle]="cardStyle">
+      <ng-content select="[front]"></ng-content>
+    </div></a>
+  </div>

@@ -5,7 +5,7 @@ import { ParticulesComponent } from "../particules/particules.component";
 @Component({
   selector: 'app-start-screen',
   standalone: true,
-  imports: [CommonModule, ParticulesComponent],
+  imports: [CommonModule],
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.css'
 })

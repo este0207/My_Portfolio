@@ -1,15 +1,26 @@
-.projectContainer{
-    display: grid;
+.projects-container {
+    display: none;
+    justify-content: center;
     position: absolute;
-    /* background-color: aqua; */
-    grid-template-columns: 1fr 1fr;
     z-index: 300;
-    width: 100%;
-    height: 90vh;
-    color: white;
-    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 100vh;
+  } 
+
+.projects-container.active{
+    display: flex;
 }
 
-.projectContainer *{
-    background-color: aqua;
+img{
+    width: 100%;
+    border-radius: 20px;
+    height: 100%;
+    /* aspect-ratio: 1/1; */
+}
+
+p{
+    padding-top: 15px;
 }
