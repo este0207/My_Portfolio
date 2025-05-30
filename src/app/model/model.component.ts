@@ -27,7 +27,10 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   private model!: THREE.Group;
   private mirror!: Reflector;
 
+  private originalCameraPosition = new THREE.Vector3(0, 2, 50);
+  private zoomedCameraPosition = new THREE.Vector3(0, 0, 2);
   private subscription: Subscription;
+  private zoomSubscription: Subscription;
   private originalScale = new THREE.Vector3(0.5, 0.5, 0.5);
   private headOnlyScale = new THREE.Vector3(3, 3, 3);
   private originalPosition = new THREE.Vector3(0, -25, 0);
@@ -37,6 +40,12 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
     this.subscription = this.viewStateService.isHeadOnlyView$.subscribe(isHeadOnly => {
       if (this.model) {
         this.animateScaleChange(isHeadOnly);
+      }
+    });
+
+    this.zoomSubscription = this.viewStateService.isZoomedView$.subscribe(isZoomed => {
+      if (this.camera) {
+        this.animateCameraZoom(isZoomed);
       }
     });
   }
@@ -206,8 +215,32 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
     animate();
   }
 
+  private animateCameraZoom(isZoomed: boolean): void {
+    const targetPosition = isZoomed ? this.zoomedCameraPosition : this.originalCameraPosition;
+    const duration = 500; // 1 seconde
+    const startTime = Date.now();
+    const startPosition = this.camera.position.clone();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Fonction d'easing pour une animation plus fluide
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      this.camera.position.lerpVectors(startPosition, targetPosition, easeProgress);
+      this.camera.lookAt(0, 0, 0);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    animate();
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    // ... existing cleanup code ...
+    this.zoomSubscription.unsubscribe();
   }
 }

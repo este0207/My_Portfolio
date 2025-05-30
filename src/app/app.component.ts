@@ -6,10 +6,11 @@ import { StartScreenComponent } from "./start-screen/start-screen.component";
 import { CursorParticleComponent } from "./cursor-particle/cursor-particle.component";
 import { FooterComponent } from "./footer/footer.component";
 import { ProjectsComponent } from "./projects/projects.component";
+import { AboutContainerComponent } from "./about-container/about-container.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ModelComponent, NavbarComponent, StartScreenComponent, CursorParticleComponent, FooterComponent, ProjectsComponent],
+  imports: [RouterOutlet, ModelComponent, NavbarComponent, StartScreenComponent, CursorParticleComponent, FooterComponent, ProjectsComponent, AboutContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
