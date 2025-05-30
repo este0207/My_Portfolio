@@ -24,3 +24,8 @@ img{
 p{
     padding-top: 15px;
 }
+
+a{
+    color: black;
+    text-decoration: none;
+}
