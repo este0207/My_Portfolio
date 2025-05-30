@@ -17,6 +17,8 @@ export class NavbarComponent {
 
   onProjectClick() {
     const textElements = document.querySelectorAll(".text");
+    const contactContainer = document.querySelector(".form-container") as HTMLElement;
+    const aboutContainer = document.querySelector(".AboutContainer") as HTMLElement;
     const projectContainer = document.querySelector(".projects-container") as HTMLElement;
     
     this.viewStateService.toggleHeadOnlyView();
@@ -24,13 +26,17 @@ export class NavbarComponent {
       element.classList.toggle("active");
     });
     setTimeout(() => {
+      aboutContainer.classList.remove("active");
+      contactContainer.classList.remove("active");
       projectContainer.classList.toggle("active");
     }, 300);
   }
 
   onAboutClick() {
     const textElements = document.querySelectorAll(".text");
+    const contactContainer = document.querySelector(".form-container") as HTMLElement;
     const aboutContainer = document.querySelector(".AboutContainer") as HTMLElement;
+    const projectContainer = document.querySelector(".projects-container") as HTMLElement;
 
 
     this.viewStateService.toggleZoomView();
@@ -38,16 +44,22 @@ export class NavbarComponent {
       element.classList.toggle("active");
     });
     setTimeout(() => {
+      projectContainer.classList.remove("active");
+      contactContainer.classList.remove("active");
       aboutContainer.classList.toggle("active");
     }, 100);
   }
 
   onContactClick(){
     const contactContainer = document.querySelector(".form-container") as HTMLElement;
+    const aboutContainer = document.querySelector(".AboutContainer") as HTMLElement;
+    const projectContainer = document.querySelector(".projects-container") as HTMLElement;
+
+
 
     this.viewStateService.toggleContactView();
-    // setTimeout(() => {
       contactContainer.classList.toggle("active");
-    // }, 300);
+      aboutContainer.classList.remove("active");
+      projectContainer.classList.remove("active");
   }
 }
