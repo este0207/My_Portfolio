@@ -24,5 +24,6 @@ export class NavbarComponent {
     setTimeout(() => {
       projectContainer.classList.toggle("active");
     }, 300);
+    // document.body.style.overflow = "scrool";
   }
 }

@@ -4,6 +4,7 @@
 *{
     margin: 0;
     padding: 0;
+    /* border: 1px solid red; */
     font-family: "Doto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
@@ -13,6 +14,6 @@
 }
 body{
     background-color: black;
-    overflow: hidden;
+    overflow-x: hidden;
     cursor: crosshair;
 }

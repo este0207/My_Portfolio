@@ -2,7 +2,7 @@
     display: flex;
     perspective: 1200px;
     width: 300px;
-    height: 400px;
+    height: 100%;
     justify-content: center;    
     
   }
@@ -25,6 +25,13 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
+  }
+
+  @media (max-width:679px){
+    .card{
+      width: 100%;
+      height: 240px;
+    }
   }
   
   
