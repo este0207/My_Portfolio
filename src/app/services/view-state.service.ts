@@ -11,11 +11,18 @@ export class ViewStateService {
   private isZoomedView = new BehaviorSubject<boolean>(false);
   isZoomedView$ = this.isZoomedView.asObservable();
 
+  private isContactView = new BehaviorSubject<boolean>(false);
+  isContactView$ = this.isContactView.asObservable();
+
   toggleHeadOnlyView() {
     this.isHeadOnlyView.next(!this.isHeadOnlyView.value);
   }
 
   toggleZoomView() {
     this.isZoomedView.next(!this.isZoomedView.value);
+  }
+
+  toggleContactView() {
+    this.isContactView.next(!this.isContactView.value);
   }
 } 
