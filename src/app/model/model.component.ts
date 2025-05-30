@@ -5,12 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 import { ViewStateService } from '../services/view-state.service';
 import { Subscription } from 'rxjs';
+import { ParticulesComponent } from "../particules/particules.component";
 
 
 @Component({
   selector: 'app-model',
   standalone: true,
-  imports: [],
+  imports: [ParticulesComponent],
   templateUrl: './model.component.html',
   styleUrl: './model.component.css'
 })
