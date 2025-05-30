@@ -15,5 +15,12 @@
 body{
     background-color: black;
     overflow-x: hidden;
+    /* overflow-y: hidden; */
     cursor: crosshair;
 }
+
+/* @media (max-width:679px){
+    body{
+        overflow-y: scroll;
+    }
+} */

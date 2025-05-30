@@ -22,10 +22,10 @@
     color: #a3a3a3;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 679px) {
     .footer {
-        padding: 0 1rem;
+        /* padding: 0 1rem; */
         height: 50px;
-        width: 90%;
+        width: 84%;
     }
 }

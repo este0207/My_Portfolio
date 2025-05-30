@@ -1,4 +1,10 @@
+/* 
 *{
+    display: flex;
+    justify-content: center;
+} */
+
+.project *{
     display: flex;
     justify-content: center;
 }

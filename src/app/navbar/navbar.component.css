@@ -94,7 +94,7 @@ a.active::after {
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem 0 1rem 0;
-    width: 92%;
+    width: 100%;
   }
   
   a {
