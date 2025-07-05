@@ -9,6 +9,7 @@ import { ProjectsComponent } from "./projects/projects.component";
 import { AboutContainerComponent } from "./about-container/about-container.component";
 import { ContactFormComponent } from "./contact-form/contact-form.component";
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ModelComponent, NavbarComponent, StartScreenComponent, CursorParticleComponent, FooterComponent, ProjectsComponent, AboutContainerComponent, ContactFormComponent],

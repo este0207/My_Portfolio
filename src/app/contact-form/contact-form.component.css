@@ -55,6 +55,7 @@
     font-family: inherit;
     background-color: transparent;
     border: 1px solid #868686;
+    transition: border-color 0.3s ease;
   }
   
   .form-container .form-group textarea {
@@ -65,7 +66,9 @@
     height: 96px;
     border: 1px solid #868686;
     background-color: transparent;
-    /* font-family: inherit; */
+    font-family: inherit;
+    padding: 12px;
+    transition: border-color 0.3s ease;
   }
   
   .form-container .form-group input::placeholder {
@@ -80,6 +83,35 @@
   .form-container .form-group textarea:focus {
     outline: none;
     border-color: #a2e5ff;
+  }
+
+  /* Styles pour les erreurs */
+  .form-container .form-group input.error,
+  .form-container .form-group textarea.error {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+  }
+
+  .error-message {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* Styles pour les messages de soumission */
+  .submit-message {
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .submit-message:not(:empty) {
+    background-color: rgba(162, 229, 255, 0.1);
+    border: 1px solid #a2e5ff;
+    color: #a2e5ff;
   }
   
   .form-container .form-submit-btn {
@@ -102,10 +134,16 @@
     transition: 0.5s;
   }
   
-  .form-container .form-submit-btn:hover {
+  .form-container .form-submit-btn:hover:not(:disabled) {
     background-color: #fff;
     border-color: #fff;
     color: #212121;
+  }
+
+  .form-container .form-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #555;
   }
   
 
