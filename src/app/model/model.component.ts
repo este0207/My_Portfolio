@@ -38,22 +38,37 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   private originalPosition = new THREE.Vector3(0, -25, 0);
   private headOnlyPosition = new THREE.Vector3(0, -250, 40);
 
+  // Variables pour gérer les animations en cours
+  private currentAnimation: string | null = null;
+  private animationFrameId: number | null = null;
+
   constructor(private viewStateService: ViewStateService) {
     this.subscription = this.viewStateService.isHeadOnlyView$.subscribe(isHeadOnly => {
       if (this.model) {
-        this.animateScaleChange(isHeadOnly);
+        this.stopCurrentAnimation();
+        if (isHeadOnly) {
+          this.animateScaleChange(true);
+        } else {
+          this.resetToDefaultPosition();
+        }
       }
     });
 
     this.zoomSubscription = this.viewStateService.isZoomedView$.subscribe(isZoomed => {
       if (this.camera) {
+        this.stopCurrentAnimation();
         this.animateCameraZoom(isZoomed);
       }
     });
 
     this.contactSubscription = this.viewStateService.isContactView$.subscribe(isContact => {
       if (this.model) {
-        this.animateContactView(isContact);
+        this.stopCurrentAnimation();
+        if (isContact) {
+          this.animateContactView(true);
+        } else {
+          this.resetToDefaultPosition();
+        }
       }
     });
   }
@@ -62,6 +77,14 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
     this.initThree();
     this.loadModel();
     this.animate();
+  }
+
+  private stopCurrentAnimation() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.currentAnimation = null;
   }
 
   private initThree() {
@@ -196,6 +219,9 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   }
 
   private animateScaleChange(isHeadOnly: boolean) {
+    if (this.currentAnimation === 'scale') return;
+    
+    this.currentAnimation = 'scale';
     const targetScale = isHeadOnly ? this.headOnlyScale : this.originalScale;
     const targetPosition = isHeadOnly ? this.headOnlyPosition : this.originalPosition;
     const duration = 1000; // 1 seconde
@@ -212,11 +238,15 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
 
       this.model.scale.lerpVectors(startScale, targetScale, easeProgress);
       this.model.position.lerpVectors(startPosition, targetPosition, easeProgress);
-      this.model.rotation.y =+ 0;
-      this.controls.enableRotate = false;
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+      
+      // Réactiver la rotation après l'animation
+      if (progress >= 1) {
+        this.controls.enableRotate = true;
+        this.currentAnimation = null;
+        this.animationFrameId = null;
+      } else {
+        this.controls.enableRotate = false;
+        this.animationFrameId = requestAnimationFrame(animate);
       }
     };
 
@@ -224,8 +254,11 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   }
 
   private animateCameraZoom(isZoomed: boolean): void {
+    if (this.currentAnimation === 'camera') return;
+    
+    this.currentAnimation = 'camera';
     const targetPosition = isZoomed ? this.zoomedCameraPosition : this.originalCameraPosition;
-    const duration = 500; // 1 seconde
+    const duration = 800; // Réduit à 800ms pour une transition plus rapide
     const startTime = Date.now();
     const startPosition = this.camera.position.clone();
 
@@ -239,8 +272,11 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
       this.camera.position.lerpVectors(startPosition, targetPosition, easeProgress);
       this.camera.lookAt(0, 0, 0);
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+      if (progress >= 1) {
+        this.currentAnimation = null;
+        this.animationFrameId = null;
+      } else {
+        this.animationFrameId = requestAnimationFrame(animate);
       }
     };
 
@@ -248,6 +284,9 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   }
 
   private animateContactView(isContact: boolean): void {
+    if (this.currentAnimation === 'contact') return;
+    
+    this.currentAnimation = 'contact';
     const targetPosition = isContact ? this.contactPosition : this.originalPosition;
     const duration = 1000;
     const startTime = Date.now();
@@ -262,8 +301,70 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
 
       this.model.position.lerpVectors(startPosition, targetPosition, easeProgress);
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+      if (progress >= 1) {
+        this.currentAnimation = null;
+        this.animationFrameId = null;
+      } else {
+        this.animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    animate();
+  }
+
+  private resetToDefaultPosition() {
+    if (this.currentAnimation === 'reset') return;
+    
+    this.currentAnimation = 'reset';
+    const duration = 800;
+    const startTime = Date.now();
+    const startScale = this.model.scale.clone();
+    const startPosition = this.model.position.clone();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      this.model.scale.lerpVectors(startScale, this.originalScale, easeProgress);
+      this.model.position.lerpVectors(startPosition, this.originalPosition, easeProgress);
+      
+      if (progress >= 1) {
+        this.controls.enableRotate = true;
+        this.currentAnimation = null;
+        this.animationFrameId = null;
+      } else {
+        this.controls.enableRotate = false;
+        this.animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    animate();
+  }
+
+  private resetCameraToDefault() {
+    if (this.currentAnimation === 'camera-reset') return;
+    
+    this.currentAnimation = 'camera-reset';
+    const duration = 800;
+    const startTime = Date.now();
+    const startPosition = this.camera.position.clone();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      this.camera.position.lerpVectors(startPosition, this.originalCameraPosition, easeProgress);
+      this.camera.lookAt(0, 0, 0);
+
+      if (progress >= 1) {
+        this.currentAnimation = null;
+        this.animationFrameId = null;
+      } else {
+        this.animationFrameId = requestAnimationFrame(animate);
       }
     };
 
@@ -271,6 +372,7 @@ export class ModelComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.stopCurrentAnimation();
     this.subscription.unsubscribe();
     this.zoomSubscription.unsubscribe();
     this.contactSubscription.unsubscribe();

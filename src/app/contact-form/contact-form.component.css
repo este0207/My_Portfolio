@@ -16,11 +16,15 @@
     border-radius: 16px;
     z-index: 299;
     top: -50%;
-    transition: 1s;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: top 0.8s ease, opacity 0.4s ease, transform 0.4s ease;
   }
 
   .form-container.active{
     top: 35%;
+    opacity: 1;
+    transform: translateY(0);
   }
   
   .form-container button:active {
